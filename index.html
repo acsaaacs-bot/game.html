@@ -1,441 +1,230 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صدى القلوب - لعبة تفاعلية بالذكاء الاصطناعي</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        animePink: '#ff75a0',
-                        animePurple: '#6c5ce7',
-                        animeDark: '#0f172a',
-                        animeCard: 'rgba(30, 41, 59, 0.85)',
-                    },
-                    fontFamily: {
-                        sans: ['Tajawal', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
-
+    <title>I'm So Sorry 🥺💔</title>
     <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', sans-serif;
+        }
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #090d16;
-            color: #f8fafc;
-            overflow-x: hidden;
+            background-color: #fdeed9;
+            background-image: radial-gradient(#f8a5c2 20%, transparent 20%);
+            background-size: 25px 25px;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-
-        /* Ambient Background Overlay Gradients */
-        .bg-street {
-            background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border: 4px solid #ff789e;
+            position: relative;
         }
-
-        .bg-park {
-            background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .bg-home {
-            background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Glassmorphism Effect */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .glass-dialog {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
-            backdrop-filter: blur(16px);
-            border: 2px solid rgba(255, 117, 160, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 117, 160, 0.15);
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 117, 160, 0.4); }
-            50% { box-shadow: 0 0 25px rgba(255, 117, 160, 0.8); }
-        }
-
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .pulse-glow {
-            animation: pulseGlow 2s infinite;
-        }
-
-        /* Typing Dots */
-        .typing-dot {
-            animation: typingAnimation 1.4s infinite ease-in-out fill-mode-both;
-        }
-        .typing-dot:nth-child(1) { animation-delay: 0s; }
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-        @keyframes typingAnimation {
-            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
-            40% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.6);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 117, 160, 0.5);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 117, 160, 0.8);
-        }
-    </style>
-</head>
-<body class="h-screen w-screen flex flex-col justify-between select-none relative overflow-hidden">
-
-    <!-- Game Container Background -->
-    <div id="gameBg" class="absolute inset-0 bg-street transition-all duration-1000 ease-in-out scale-105"></div>
-
-    <!-- Top Status Bar -->
-    <header class="relative z-20 p-4 md:px-8 flex justify-between items-center glass-panel m-3 md:m-4 rounded-2xl shadow-lg border border-white/10">
-        <!-- Player Info -->
-        <div class="flex items-center gap-3">
-            <div class="relative">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" id="boyAvatar" class="w-12 h-12 rounded-full border-2 border-animePurple object-cover shadow-md" alt="رين">
-                <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full"></span>
-            </div>
-            <div>
-                <h3 class="font-bold text-slate-100 text-sm md:text-base flex items-center gap-1.5">
-                    <span>رين (أنت)</span>
-                    <i class="fa-solid fa-[#6c5ce7] fa-cat text-xs text-indigo-400"></i>
-                </h3>
-                <p class="text-xs text-slate-400">فتى هادئ وبآذان قطة</p>
-            </div>
-        </div>
-
-        <!-- Relationship / Location Tracker -->
-        <div class="flex flex-col items-center max-w-[180px] md:max-w-xs w-full px-2">
-            <div class="flex justify-between w-full text-xs font-bold mb-1">
-                <span class="text-animePink flex items-center gap-1">
-                    <i class="fa-solid fa-heart text-xs animate-bounce"></i> مستوى الصداقة
-                </span>
-                <span id="affinityScore" class="text-slate-300">10%</span>
-            </div>
-            <!-- Progress Bar -->
-            <div class="w-full bg-slate-800/80 rounded-full h-2.5 overflow-hidden border border-white/10 p-0.5">
-                <div id="affinityBar" class="bg-gradient-to-r from-animePurple via-pink-500 to-animePink h-full rounded-full transition-all duration-700 ease-out" style="width: 10%;"></div>
-            </div>
-            <span id="locationBadge" class="text-[10px] text-pink-300/80 mt-1 font-semibold tracking-wider">الشارع الرئيسي 🏙️</span>
-        </div>
-
-        <!-- Controls / Reset Button -->
-        <div class="flex items-center gap-2">
-            <button id="resetBtn" title="إعادة اللعبة" class="w-10 h-10 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-pink-400 flex items-center justify-center transition border border-white/10">
-                <i class="fa-solid fa-rotate-right"></i>
-            </button>
-            <button id="infoBtn" title="تعليمات" class="w-10 h-10 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-pink-400 flex items-center justify-center transition border border-white/10">
-                <i class="fa-solid fa-circle-info"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Center Stage: Anime Girl Avatar & Visual Effect -->
-    <main class="relative z-10 flex-1 flex flex-col justify-end items-center px-4 pb-2 md:pb-4">
+        h1 { color: #ff4757; margin-bottom: 10px; }
+        p { color: #485460; font-size: 17px; line-height: 1.6; }
         
-        <!-- Girl Character Display Box -->
-        <div class="relative flex justify-center items-end w-full max-w-sm md:max-w-md h-[380px] md:h-[460px] pointer-events-none">
-            
-            <!-- Glow effect behind character -->
-            <div class="absolute bottom-10 w-64 h-64 bg-animePink/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
+        .card-box {
+            background: #fff5f5;
+            border: 3px dashed #ff789e;
+            padding: 20px;
+            border-radius: 20px;
+            margin: 15px 0;
+        }
 
-            <!-- Mia Sprite -->
-            <div class="relative transition-all duration-500 ease-out transform animate-float">
-                <img id="girlSprite" 
-                     src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop" 
-                     alt="ميا" 
-                     class="max-h-[360px] md:max-h-[440px] object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)] rounded-3xl border-2 border-pink-400/30">
-                
-                <!-- Emotion Reaction Particle Overlay (Dynamic Emoji) -->
-                <div id="emotionBubble" class="absolute -top-4 -right-2 bg-slate-900/90 text-2xl p-2 rounded-2xl border border-pink-400/50 shadow-lg opacity-0 transition-opacity duration-300">
-                    ✨
-                </div>
-            </div>
+        /* الأزرار العامة */
+        .btn-main {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-main:hover {
+            transform: scale(1.05);
+        }
+
+        /* تنسيق أزرار الأسئلة (نعم / لا) */
+        .buttons-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        .btn-yes {
+            background: #2ed573;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(46, 213, 115, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-no {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .error-note {
+            color: #d63031;
+            font-weight: bold;
+            margin-top: 15px;
+            min-height: 25px;
+            font-size: 15px;
+        }
+
+        .hidden { display: none; }
+    </style>
+    <!-- مكتبة القصاصات الاحتفالية -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- 1. رسالة الاعتذار الأولى -->
+    <div id="intro-section">
+        <h1>I'm So Sorry! 🥺</h1>
+        <div class="card-box">
+            <p style="color: #d63031; font-weight: bold;">
+                I know I might have messed up or been silly, and I really didn't mean to make you upset. You mean the absolute world to me, and I made this just to tell you how sorry I am... 💔🐶
+            </p>
         </div>
+        <button class="btn-main" onclick="goToQuestion1()">Next 💌</button>
+    </div>
 
-    </main>
-
-    <!-- Bottom Stage: Visual Novel Dialogue Box & Interaction Area -->
-    <footer class="relative z-20 p-3 md:p-6 w-full max-w-4xl mx-auto">
-        <div class="glass-dialog rounded-3xl p-4 md:p-6 shadow-2xl relative">
-            
-            <!-- Character Name Tag -->
-            <div class="absolute -top-5 right-8 bg-gradient-to-r from-animePink to-pink-600 text-white font-extrabold px-6 py-1.5 rounded-full text-sm md:text-base shadow-lg flex items-center gap-2 border border-white/20">
-                <span id="speakerName">ميا (Mia)</span>
-                <i id="speakerIcon" class="fa-solid fa-heart-pulse text-xs"></i>
-            </div>
-
-            <!-- Dialogue History / Last Message Display -->
-            <div class="min-h-[90px] md:min-h-[105px] mt-2 mb-4 flex flex-col justify-center">
-                <p id="dialogueText" class="text-slate-100 text-base md:text-lg leading-relaxed font-medium">
-                    "أوه، أهلاً بك! لم أتوقع رؤيتك هنا في هذا الوقت. الطقس جميل اليوم، أليس كذلك؟ 🐾"
-                </p>
-                
-                <!-- AI Thinking/Typing Indicator -->
-                <div id="typingIndicator" class="hidden flex items-center gap-1.5 text-pink-400 mt-2 text-sm">
-                    <span class="font-semibold text-xs">ميا تفكر في الإجابة</span>
-                    <div class="flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 bg-pink-400 rounded-full typing-dot"></span>
-                        <span class="w-1.5 h-1.5 bg-pink-400 rounded-full typing-dot"></span>
-                        <span class="w-1.5 h-1.5 bg-pink-400 rounded-full typing-dot"></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Input Form for Player (Boy) -->
-            <form id="chatForm" class="flex gap-2 md:gap-3 items-center">
-                <div class="relative flex-1">
-                    <input type="text" 
-                           id="userInput" 
-                           placeholder="اكتب ردك لميا هنا..." 
-                           class="w-full bg-slate-900/90 border border-pink-500/30 focus:border-animePink rounded-2xl px-5 py-3 text-slate-100 placeholder-slate-400 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition shadow-inner"
-                           autocomplete="off">
-                </div>
-                
-                <button type="submit" 
-                        id="sendBtn"
-                        class="bg-gradient-to-r from-animePink to-pink-600 hover:from-pink-500 hover:to-pink-700 text-white font-bold px-6 py-3 rounded-2xl transition shadow-lg hover:shadow-pink-500/30 flex items-center gap-2 text-sm md:text-base active:scale-95 disabled:opacity-50">
-                    <span>إرسال</span>
-                    <i class="fa-solid fa-paper-plane text-xs"></i>
-                </button>
-            </form>
-
+    <!-- 2. السؤال الأول -->
+    <div id="q1-section" class="hidden">
+        <h2>Question 1</h2>
+        <p><strong>Will you accept my apology? 🥺</strong></p>
+        
+        <div class="buttons-group">
+            <button id="q1-yes" class="btn-yes" onclick="answerQ1Yes()">Yes! ❤️</button>
+            <button id="q1-no" class="btn-no" onclick="answerQ1No()">No 😒</button>
         </div>
-    </footer>
+        <p id="q1-msg" class="error-note"></p>
+    </div>
 
-    <!-- Info Modal -->
-    <div id="infoModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border border-pink-500/30 rounded-3xl p-6 max-w-md w-full text-slate-200 relative shadow-2xl">
-            <button id="closeInfoBtn" class="absolute top-4 left-4 text-slate-400 hover:text-white text-xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 class="text-xl font-bold text-animePink mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-gamepad"></i> طريقة اللعب
-            </h3>
-            <ul class="space-y-2 text-sm leading-relaxed text-slate-300 list-disc list-inside">
-                <li>أنت تلعب دور الفتى <b>(رين)</b>، وميا هي الفتاة الذكية التي تتحدث معك.</li>
-                <li>اكتب ردودك بحرية في المربع السفلي. ستستجيب ميا لك باستخدام الذكاء الاصطناعي بطريقة لطيفة وتفاعلية.</li>
-                <li>تزداد نسبة الصداقة بينكما كلما تحدثتما أكثر.</li>
-                <li>عند وصول الصداقة لـ <b>40%</b> سينتقل المشهد إلى <b>الحديقة</b>.</li>
-                <li>عند وصول الصداقة لـ <b>75%</b> ستدعوك ميا لزيارة <b>منزلها الدافيء</b>!</li>
-            </ul>
-            <button id="gotItBtn" class="w-full mt-6 bg-pink-600 hover:bg-pink-500 text-white font-bold py-2.5 rounded-xl transition">
-                فهمت، لنبدأ!
-            </button>
+    <!-- 3. السؤال الثاني -->
+    <div id="q2-section" class="hidden">
+        <h2>Question 2</h2>
+        <p><strong>Do you forgive me? 🥺</strong></p>
+        
+        <div class="buttons-group">
+            <button id="q2-yes" class="btn-yes" onclick="answerQ2Yes()">Yes, of course! 💕</button>
+            <button id="q2-no" class="btn-no" onclick="answerQ2No()">No ✋</button>
+        </div>
+        <p id="q2-msg" class="error-note"></p>
+    </div>
+
+    <!-- 4. رسالة الاعتذار النهائية -->
+    <div id="final-section" class="hidden">
+        <h1>Thank You! 🥰🎉</h1>
+        <div class="card-box">
+            <p style="font-size: 18px; color: #d63031; font-weight: bold;">
+                Thank you so much for forgiving me! I promise to always be your best, silliest puppy and never make you upset again. You're the best sister ever, I love you so much WOOF WOOF!! 🐶❤️🫂
+            </p>
         </div>
     </div>
 
-    <!-- JavaScript Game Logic -->
-    <script>
-        // Game State Variables
-        let affinityScore = 10;
-        let currentScene = 'street'; // 'street', 'park', 'home'
-        let chatHistory = [];
-        let isWaitingForAi = false;
+</div>
 
-        // System Instruction defining Mia's Persona
-        const systemPrompt = `
-انت تلعبين دور شخصية أنمي اسمها "ميا" (Mia). 
-مواصفات ميا:
-- فتاة لطيفة، مرحة، تمتلك آذان قطة وشعر فضي/أبيض وعيون وردية جَذّابة.
-- تتحدث مع الفتى "رين" (المستخدم/اللاعب) الذي يحمل أيضاً آذان قطة وشخصية هادئة.
-- اللغة المستخدمة: العربية الفصحى أو الودية المبسطة مع إدراج رموز تعبيرية كرتونية لطيفة (مثل 🐾, ✨, 😊, 🌸).
-- قواعد التفاعل:
- 1. تزداد مودة ميا ولطفها كلما أظهر رين اهتماماً وطيبة.
- 2. الاستجابات يجب أن تكون قصيرة إلى متوسطة (بين 2 إلى 4 جمل فقط) لتبدو كحوار رواية تفاعلية.
- 3. تذكري سياق المحادثة وتطوري في الحديث من اللقاء العابر في الشارع إلى توطيد الصداقة ثم حماس الانتقال وزيارة المنزل معاً.
-`;
+<script>
+    // الانتقال للسؤال الأول
+    function goToQuestion1() {
+        document.getElementById('intro-section').classList.add('hidden');
+        document.getElementById('q1-section').classList.remove('hidden');
+    }
 
-        // DOM Elements
-        const dialogueText = document.getElementById('dialogueText');
-        const userInput = document.getElementById('userInput');
-        const chatForm = document.getElementById('chatForm');
-        const sendBtn = document.getElementById('sendBtn');
-        const typingIndicator = document.getElementById('typingIndicator');
-        const affinityBar = document.getElementById('affinityBar');
-        const affinityScoreEl = document.getElementById('affinityScore');
-        const locationBadge = document.getElementById('locationBadge');
-        const gameBg = document.getElementById('gameBg');
-        const emotionBubble = document.getElementById('emotionBubble');
-        const infoModal = document.getElementById('infoModal');
-        const infoBtn = document.getElementById('infoBtn');
-        const closeInfoBtn = document.getElementById('closeInfoBtn');
-        const gotItBtn = document.getElementById('gotItBtn');
-        const resetBtn = document.getElementById('resetBtn');
+    // العدادات لتصغير زر ال لا وتغيير الرسائل
+    let q1NoClicks = 0;
+    const q1NoTexts = ["Are you sure? 🥺", "Think about it again!", "Don't break my heart 💔", "Last chance to click yes!", "The button is shrinking..."];
+    let q1NoScale = 1;
 
-        // Modal Controls
-        infoBtn.addEventListener('click', () => infoModal.classList.remove('hidden'));
-        closeInfoBtn.addEventListener('click', () => infoModal.classList.add('hidden'));
-        gotItBtn.addEventListener('click', () => infoModal.classList.add('hidden'));
+    function answerQ1No() {
+        q1NoClicks++;
+        const msgElem = document.getElementById('q1-msg');
+        const noBtn = document.getElementById('q1-no');
+        const yesBtn = document.getElementById('q1-yes');
 
-        // Reset Game
-        resetBtn.addEventListener('click', () => {
-            if(confirm("هل تريد إعادة بدء المحادثة والقصة من جديد؟")) {
-                affinityScore = 10;
-                currentScene = 'street';
-                chatHistory = [];
-                updateAffinityUI(0);
-                gameBg.className = "absolute inset-0 bg-street transition-all duration-1000 ease-in-out scale-105";
-                locationBadge.textContent = "الشارع الرئيسي 🏙️";
-                dialogueText.textContent = '"أوه، أهلاً بك! لم أتوقع رؤيتك هنا في هذا الوقت. الطقس جميل اليوم، أليس كذلك؟ 🐾"';
-            }
-        });
-
-        // Show Temporary Emotion Bubble
-        function triggerEmotion(emoji) {
-            emotionBubble.textContent = emoji;
-            emotionBubble.classList.remove('opacity-0');
-            setTimeout(() => {
-                emotionBubble.classList.add('opacity-0');
-            }, 2500);
+        if (q1NoClicks < q1NoTexts.length) {
+            msgElem.innerText = q1NoTexts[q1NoClicks - 1];
+            // تصغير زر الـ No وتكبير زر الـ Yes تدريجياً
+            q1NoScale -= 0.15;
+            noBtn.style.transform = `scale(${q1NoScale})`;
+            yesBtn.style.transform = `scale(${1 + (q1NoClicks * 0.1)})`;
+        } else {
+            // اختفاء زر الـ No نهائياً بعد آخر محاولة
+            noBtn.style.display = 'none';
+            msgElem.innerText = "You have no other choice now! Click Yes ❤️";
+            yesBtn.style.transform = 'scale(1.2)';
         }
+    }
 
-        // Update Relationship Meter & Scene Transitions
-        function updateAffinityUI(pointsToAdd = 5) {
-            affinityScore = Math.min(100, affinityScore + pointsToAdd);
-            affinityScoreEl.textContent = `${affinityScore}%`;
-            affinityBar.style.width = `${affinityScore}%`;
+    function answerQ1Yes() {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+        document.getElementById('q1-section').classList.add('hidden');
+        document.getElementById('q2-section').classList.remove('hidden');
+    }
 
-            // Scene Logic Progression
-            if (affinityScore >= 75 && currentScene !== 'home') {
-                currentScene = 'home';
-                gameBg.className = "absolute inset-0 bg-home transition-all duration-1000 ease-in-out scale-105";
-                locationBadge.textContent = "منزل ميا الدافئ 🏡";
-                triggerEmotion('💖');
-            } else if (affinityScore >= 40 && affinityScore < 75 && currentScene !== 'park') {
-                currentScene = 'park';
-                gameBg.className = "absolute inset-0 bg-park transition-all duration-1000 ease-in-out scale-105";
-                locationBadge.textContent = "الحديقة الهادئة 🌸";
-                triggerEmotion('🌸');
-            }
+    // السؤال الثاني
+    let q2NoClicks = 0;
+    const q2NoTexts = ["Really no? 😭", "My heart is breaking...", "You wouldn't do this to me :(", "Just forgive me already! 🥺", "Poof! The no button is gone!"];
+    let q2NoScale = 1;
+
+    function answerQ2No() {
+        q2NoClicks++;
+        const msgElem = document.getElementById('q2-msg');
+        const noBtn = document.getElementById('q2-no');
+        const yesBtn = document.getElementById('q2-yes');
+
+        if (q2NoClicks < q2NoTexts.length) {
+            msgElem.innerText = q2NoTexts[q2NoClicks - 1];
+            q2NoScale -= 0.15;
+            noBtn.style.transform = `scale(${q2NoScale})`;
+            yesBtn.style.transform = `scale(${1 + (q2NoClicks * 0.1)})`;
+        } else {
+            noBtn.style.display = 'none';
+            msgElem.innerText = "Okay, no is out of options! Press Yes 💕";
+            yesBtn.style.transform = 'scale(1.2)';
         }
+    }
 
-        // Send Message Handler
-        chatForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const text = userInput.value.trim();
-            if (!text || isWaitingForAi) return;
+    function answerQ2Yes() {
+        confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
+        document.getElementById('q2-section').classList.add('hidden');
+        document.getElementById('final-section').classList.remove('hidden');
+    }
+</script>
 
-            // Player Turn
-            userInput.value = '';
-            dialogueText.textContent = `رين: "${text}"`;
-            
-            // UI state while loading
-            isWaitingForAi = true;
-            sendBtn.disabled = true;
-            typingIndicator.classList.remove('hidden');
-
-            // Build Context Prompt
-            const sceneContext = currentScene === 'street' 
-                ? "أنتم الآن في الشارع العام تتعرفون على بعضكما."
-                : currentScene === 'park'
-                ? "أصبحتم صديقين مقربين وتتمشيان في الحديقة العامة."
-                : "أنتما الآن في المنزل معاً كأصدقاء مقربين جداً وسعداء بوقتكما.";
-
-            const userPrompt = `
-[الموقع الحقيقي الحالي: ${sceneContext}]
-[نسبة الصداقة الحالية: ${affinityScore}%]
-رد الفتى (رين): "${text}"
-
-المطلوب: أجيبي بلسان الشخصية (ميا) برد متوافق ولطيف.
-`;
-
-            chatHistory.push({ role: 'user', parts: [{ text: userPrompt }] });
-
-            try {
-                const responseText = await callGeminiAPI(userPrompt);
-                
-                // AI Turn Output
-                dialogueText.textContent = responseText;
-                
-                // Add to memory
-                chatHistory.push({ role: 'model', parts: [{ text: responseText }] });
-                
-                // Increase affinity
-                updateAffinityUI(Math.floor(Math.random() * 6) + 4);
-                
-                // Random reaction icon
-                const emojis = ['😸', '✨', '🐾', '💕', '🥰', '🌸'];
-                triggerEmotion(emojis[Math.floor(Math.random() * emojis.length)]);
-
-            } catch (err) {
-                console.error("API Call Error:", err);
-                dialogueText.textContent = 'ميا: "مييااو~ يبدو أن هناك تعثراً بسيطاً في شبكتنا، هل يمكنك إعادة ما قلته؟ 🐾"';
-            } finally {
-                isWaitingForAi = false;
-                sendBtn.disabled = false;
-                typingIndicator.classList.add('hidden');
-            }
-        });
-
-        // Gemini API Call Function
-        async function callGeminiAPI(promptText) {
-            const apiKey = ""; // Runtime automatically injected by environment
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: chatHistory.length > 0 ? chatHistory : [{ parts: [{ text: promptText }] }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                }
-            };
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                throw new Error(`Server status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-            if (!reply) {
-                throw new Error("No response string from Gemini");
-            }
-
-            return reply;
-        }
-    </script>
 </body>
 </html>
