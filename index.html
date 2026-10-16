@@ -42,6 +42,14 @@
             margin: 15px 0;
         }
 
+        /* تنسيق الصور المتحركة */
+        .gif-img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 15px;
+            margin: 10px 0;
+        }
+
         /* الأزرار العامة */
         .btn-main {
             background: #ff4757;
@@ -111,9 +119,10 @@
 
 <div class="container">
 
-    <!-- 1. رسالة الاعتذار الأولى -->
+    <!-- 1. رسالة الاعتذار الأولى مع الصورة الأولى -->
     <div id="intro-section">
         <h1>I'm So Sorry! 🥺</h1>
+        <img src="bear1.gif" alt="Cute Bear" class="gif-img">
         <div class="card-box">
             <p style="color: #d63031; font-weight: bold;">
                 I know I might have messed up or been silly, and I really didn't mean to make you upset. You mean the absolute world to me, and I made this just to tell you how sorry I am... 💔🐶
@@ -128,8 +137,8 @@
         <p><strong>Will you accept my apology? 🥺</strong></p>
         
         <div class="buttons-group">
-            <button id="q1-yes" class="btn-yes" onclick="answerQ1Yes()">Yes! ❤️</button>
-            <button id="q1-no" class="btn-no" onclick="answerQ1No()">No 😒</button>
+            <button id="q1-yes" class="btn-yes" onclick="answerQ1Yes()">Yes </button>
+            <button id="q1-no" class="btn-no" onclick="answerQ1No()">No </button>
         </div>
         <p id="q1-msg" class="error-note"></p>
     </div>
@@ -140,18 +149,19 @@
         <p><strong>Do you forgive me? 🥺</strong></p>
         
         <div class="buttons-group">
-            <button id="q2-yes" class="btn-yes" onclick="answerQ2Yes()">Yea 💕</button>
+            <button id="q2-yes" class="btn-yes" onclick="answerQ2Yes()">Yes 🥺</button>
             <button id="q2-no" class="btn-no" onclick="answerQ2No()">No </button>
         </div>
         <p id="q2-msg" class="error-note"></p>
     </div>
 
-    <!-- 4. رسالة الاعتذار النهائية -->
+    <!-- 4. رسالة الاعتذار النهائية مع الصورة الثانية -->
     <div id="final-section" class="hidden">
-        <h1>Thank you 🥺</h1>
+        <h1>I'm sorry 🥺😔</h1>
+        <img src="bear2.gif" alt="I'm Sorry Bears" class="gif-img">
         <div class="card-box">
             <p style="font-size: 18px; color: #d63031; font-weight: bold;">
-                I'm truly sorry for everything I promise it won't happen again pls forgive me and give me another chance I'm sorry 😔
+                Thank you! I'm truly sorry for everything I promise it won't happen again pls forgive me nd give me another chance I'm sorry 😔
             </p>
         </div>
     </div>
@@ -167,7 +177,7 @@
 
     // العدادات لتصغير زر ال لا وتغيير الرسائل
     let q1NoClicks = 0;
-    const q1NoTexts = ["Are you sure? 🥺", "Think about it again pls!", "Don't break my heart 💔", "Last chance to click yes!", "The button is shrinking..."];
+    const q1NoTexts = ["Are you sure? 🥺", "Think about it again pls!", "Don't break my heart 💔", "Last chance! cmmmn pls 🥺", "The button is shrinking..."];
     let q1NoScale = 1;
 
     function answerQ1No() {
@@ -178,14 +188,12 @@
 
         if (q1NoClicks < q1NoTexts.length) {
             msgElem.innerText = q1NoTexts[q1NoClicks - 1];
-            // تصغير زر الـ No وتكبير زر الـ Yes تدريجياً
             q1NoScale -= 0.15;
             noBtn.style.transform = `scale(${q1NoScale})`;
             yesBtn.style.transform = `scale(${1 + (q1NoClicks * 0.1)})`;
         } else {
-            // اختفاء زر الـ No نهائياً بعد آخر محاولة
             noBtn.style.display = 'none';
-            msgElem.innerText = "You have no other choice now! cmmn pls 🥺";
+            msgElem.innerText = "You have no other choice cmmmn pls for me 🥺";
             yesBtn.style.transform = 'scale(1.2)';
         }
     }
@@ -214,7 +222,7 @@
             yesBtn.style.transform = `scale(${1 + (q2NoClicks * 0.1)})`;
         } else {
             noBtn.style.display = 'none';
-            msgElem.innerText = "cmmmn pls sis I'm sorry 🥺";
+            msgElem.innerText = "cmmmn pls for me my big sis 🥺";
             yesBtn.style.transform = 'scale(1.2)';
         }
     }
