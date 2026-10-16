@@ -140,18 +140,18 @@
         <p><strong>Do you forgive me? 🥺</strong></p>
         
         <div class="buttons-group">
-            <button id="q2-yes" class="btn-yes" onclick="answerQ2Yes()">Yes, of course! 💕</button>
-            <button id="q2-no" class="btn-no" onclick="answerQ2No()">No ✋</button>
+            <button id="q2-yes" class="btn-yes" onclick="answerQ2Yes()">Yea 💕</button>
+            <button id="q2-no" class="btn-no" onclick="answerQ2No()">No </button>
         </div>
         <p id="q2-msg" class="error-note"></p>
     </div>
 
     <!-- 4. رسالة الاعتذار النهائية -->
     <div id="final-section" class="hidden">
-        <h1>Thank You! 🥰🎉</h1>
+        <h1>Thank you 🥺</h1>
         <div class="card-box">
             <p style="font-size: 18px; color: #d63031; font-weight: bold;">
-                Thank you so much for forgiving me! I promise to always be your best, silliest puppy and never make you upset again. You're the best sister ever, I love you so much WOOF WOOF!! 🐶❤️🫂
+                I'm truly sorry for everything I promise it won't happen again pls forgive me and give me another chance I'm sorry 😔
             </p>
         </div>
     </div>
@@ -167,7 +167,7 @@
 
     // العدادات لتصغير زر ال لا وتغيير الرسائل
     let q1NoClicks = 0;
-    const q1NoTexts = ["Are you sure? 🥺", "Think about it again!", "Don't break my heart 💔", "Last chance to click yes!", "The button is shrinking..."];
+    const q1NoTexts = ["Are you sure? 🥺", "Think about it again pls!", "Don't break my heart 💔", "Last chance to click yes!", "The button is shrinking..."];
     let q1NoScale = 1;
 
     function answerQ1No() {
@@ -185,7 +185,7 @@
         } else {
             // اختفاء زر الـ No نهائياً بعد آخر محاولة
             noBtn.style.display = 'none';
-            msgElem.innerText = "You have no other choice now! Click Yes ❤️";
+            msgElem.innerText = "You have no other choice now! cmmn pls 🥺";
             yesBtn.style.transform = 'scale(1.2)';
         }
     }
@@ -214,7 +214,7 @@
             yesBtn.style.transform = `scale(${1 + (q2NoClicks * 0.1)})`;
         } else {
             noBtn.style.display = 'none';
-            msgElem.innerText = "Okay, no is out of options! Press Yes 💕";
+            msgElem.innerText = "cmmmn pls sis I'm sorry 🥺";
             yesBtn.style.transform = 'scale(1.2)';
         }
     }
